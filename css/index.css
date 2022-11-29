@@ -69,7 +69,7 @@ body{
     padding:0;
     list-style-type: none;
     display: flex;
-    width:80px;
+    width:50px;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -263,51 +263,46 @@ nav ul{
     background-color: white;
 }
 .progress-circle{
-    position: relative;             /* pour servir de référent */
-    box-sizing: border-box;         /* prise en compte bordure dans la dimension */
-    font-size: 6em;                 /* pour définir les dimensions */
-    width: 1.5em;                     /* fixe la largeur */
-    height: 1.5em;                    /* fixe la hauteur */
-    border-radius: 50%;             /* rendu aspect circulaire */
-    border: .15em solid #a7d2dd58;       /* couleur de fond de l'anneau */
-    background-color: rgba(206, 215, 220, 0.153);         /* couleur de fond de la progress bar */
-  }
-  .progress-masque {
-    position: absolute;
-    width: 1.5em;                     /* 100% de la largeur */
-    height: 1.5em;                    /* 100% de la hauteur */
-    left: -.15em;                   /* décalage de la largeur bordure de la gauge */
-    top: -.15em;                    /* décalage de la largeur bordure de la gauge */
-    clip: rect(0, 1.5em, 1.5em, 0.75em);  /* par défaut seule la partie droite est visible */
-  }
- 
-.progress-barre {
-  position: absolute;
-  box-sizing: border-box;         /* prise en compte bordure dans la dimension */
-  border-width: .15em;            /* largeur bordure de la gauge */
-  border-style: solid;
-  border-color: #04b4e0f3;
-  border-radius: 50%;             /* rendu aspect circulaire */
-  width: 1.5em;                     /* largeur à 100% */
-  height: 1.5em;                    /* hauteur à 100% */
-  clip: rect(0, 0.75em,1.5em, 0);    /* on ne garde que la partie gauche */
-}
-.progress-circle[data-value="HTML"]   .progress-barre {transform: rotate(180deg)}
-.progress-circle[data-value="Vue Js"]   .progress-barre {transform: rotate(90deg)}
-
-.progress-circle:after {
-    content: attr(data-value);  /* récup. valeur de progression */
-    font-size: 0.22em;              /* taille de la font en % du parent */
-    height: 100%;                   /* centrage dans le parent */
+    position: relative;
+    height:130px;
+    width:130px;
+    border-radius: 50%;
+    background: conic-gradient(#04b4e0 250deg,#04b4e01c 0deg);
     display: flex;
     align-items: center;
-    justify-content: center;
-    color:#04a8d1;
     font-weight: bolder;
-    /*-- pour effet shadow intérieur --*/
+    justify-content: center;
+}
+.progress-circle2{
+    position: relative;
+    height:130px;
+    width:130px;
     border-radius: 50%;
-    box-shadow: 0 0 .5em rgba(0, 0, 0, .5) inset;
-  }
+    background: conic-gradient(#04b4e0 200deg,#04b4e038 0deg);
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    justify-content: center;
+}
+.progress-circle:before{
+    content:"";
+    position:absolute;
+    height:105px;
+    width:105px;
+    border-radius: 50%;
+    background-color: rgba(243, 243, 243, 0.851);
+}
+.progress-circle2:before{
+    content:"";
+    position:absolute;
+    height:105px;
+    width:105px;
+    border-radius: 50%;
+    background-color: rgba(243, 243, 243, 0.851);
+}
+.progress-circle .progress-value,.progress-circle2 .progress-value{
+    position: relative;
+}
   .en_cours_content{
     padding: 30px;
     width:350px;
@@ -523,7 +518,6 @@ nav ul{
     text-align: center;
     width:400px;
     height:150px;
-    margin-top: -20px;
     position: relative;
     z-index: 1;
 }
@@ -623,6 +617,12 @@ form textarea{
 .contact form label{
     color:#04b4e0f3;
 }
+.formation .indicator{
+    display:block;
+}
+.expskills .indicator{
+    display: block;
+}
 .error{
     animation:error 400ms ease-in-out;
 }
@@ -669,15 +669,14 @@ form textarea{
         width:100%;
         height:auto;
     }
+
     .formation .indicator{
         left:31.5%;
     }
     .expskills .indicator{
         left:25.4%;
     }
-    .formation .progress-circle{
-        margin:0 auto;
-    }
+
     .formation .other_studies{
         width:100%;
     }
@@ -720,6 +719,24 @@ form textarea{
         position:absolute;
         inset:0
     }
+    .formation .en_cours_content{
+        padding:20px;
+        width:100%;
+        height:auto;
+        justify-content: space-around;
+        align-items: center;
+       
+    }
+    .formation .progress-circle{
+        margin-bottom:15px;
+    }
+    .formation .indicator{
+        display: block;
+    }
+    .expskills .indicator{
+        display: block;
+    }
+   
     nav .nav-mobile{
         background-color: #04b4e0;
         color:white;
@@ -818,12 +835,23 @@ form textarea{
     width:100%;
     margin-top: 20px;
   }
+  .formation .indicator{
+    display: none;
+}
+    .expskills .indicator{
+    display: none;
+}
   .projects .slides{
     flex-direction: column;
+    justify-content: baseline;
   }
   .projects .slides .main ,.projects .slides .maine{
     width: 100%;
+    height:200px
   }
-  
-}
+  .projects .slides .main img:not(.fleche),.projects .slides .maine img:not(.fleche){
+    width: 100%;
+    height:100%;
+
+  }
 }
