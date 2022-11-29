@@ -19,6 +19,12 @@ for(let i=0;i<navbtns.childElementCount;i++){
         }
         slides.children[i].style.opacity=1
         last=i;
+        if(i==4){
+            slides.children[i].style.zIndex=9 
+        }
+        else{
+            slides.children[4].style.zIndex=1
+        }
     })
 }
 for(let i=3;i<navbmo.childElementCount-1;i++){
@@ -31,6 +37,12 @@ for(let i=3;i<navbmo.childElementCount-1;i++){
         }
         slides.children[i-3].style.opacity=1
         las=i-3;
+        if(i==7){
+            slides.children[i-3].style.zIndex=9 
+        }
+        else{
+            slides.children[4].style.zIndex=1
+        }
     })
 }
 btnSlide.addEventListener("click",function(){
@@ -64,7 +76,16 @@ setInterval(function() {
             e.children[i].children[1].children[0].setAttribute("class","b")
         }
     }
-},0.1);
+    if(slides.children[2].style.opacity==1){
+
+        e=document.getElementsByClassName("progress-circle")[0]
+        //e.style.animation="slide_2 2s all ease-in-out 1s"
+        
+    }else{
+        e=document.getElementsByClassName("progress-circle")[0]
+        e.style.animation=null
+    }
+},200);
 //Animation des labels dans le formulaire
 let show=(n)=>{
   let labs=document.querySelectorAll("label")
@@ -188,8 +209,9 @@ function saveBook() {
 }
 
 //Checker
+let input;
 document.getElementById("full-name").addEventListener("change",(e)=>{
-    let input;
+    
     if(document.getElementById("full-name").value.split(" ").join("").length<2){
         input=false;
         document.getElementsByClassName("send")[0].setAttribute("disabled","disabled")
@@ -210,9 +232,10 @@ document.getElementById("full-name").addEventListener("change",(e)=>{
         document.getElementById("full-name-label").style.color="green"
     }
 })
+let validate=false
 document.getElementById("email").addEventListener("change",(e)=>{
     let validateEmail=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
-    let validate=false
+    
     validate= validateEmail.test(document.getElementById("email").value)
     if(validate==false){
         
@@ -223,7 +246,7 @@ document.getElementById("email").addEventListener("change",(e)=>{
             document.getElementById("email").classList.remove("error")
              
         }, 1000);
-        document.getElementById("msg_error").textContent="Format invalide."
+        document.getElementById("msg_error").textContent="Format email invalide."
     }
     else{
         document.getElementById("msg_error").textContent=""
@@ -231,10 +254,11 @@ document.getElementById("email").addEventListener("change",(e)=>{
         document.getElementById("email-label").style.color="green"
     }
 })
+let message_c;
 document.getElementById("message_content").addEventListener("change",(e)=>{
-    let message_content;
+   
     if(document.getElementById("message_content").value.length<4){
-        message_content=false;
+        message_c=false;
         document.getElementById("message_content").classList.add("error")
         document.getElementById("message_content").style.border="2px solid red"
         document.getElementById("message_content_label").style.color="red"
@@ -242,16 +266,29 @@ document.getElementById("message_content").addEventListener("change",(e)=>{
             document.getElementById("message_content").classList.remove("error")
              
         }, 1000);
-        document.getElementById("msg_error").textContent="Le commentaire doit faire un minimum de quatre mots"
+        document.getElementById("msg_error").textContent="Le commentaire doit avoir un minimum de quatre lettres"
     }
     else{
-        message_content=true
+        message_c=true
         document.getElementById("msg_error").textContent=""
         document.getElementById("message_content").style.border="2px solid green" 
         document.getElementById("message_content_label").style.color="green"
     }
 })
+window.setInterval(()=>{
+    try{
+        console.log(message_c);
 
+        if(message_c&&validate&&input){
+            
+            document.getElementsByClassName("send")[0].style.display="block"
+        }else{
+            document.getElementsByClassName("send")[0].style.display="none"
+        }
+    }catch{
+        document.getElementsByClassName("send")[0].style.display="none"
+    }
+},10)
 
 let slide=0;
 document.getElementsByClassName("fleche")[0].addEventListener("click",function(){
